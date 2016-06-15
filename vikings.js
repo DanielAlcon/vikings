@@ -2,8 +2,8 @@
 
 var Viking = function(name, health, strength) {
 	this.name = name,
-	this.health = health,
-	this.strength = strength;
+	this.health = randomHealth(),
+	this.strength = randomStrength();
 };
 
 function randomHealth(){
@@ -34,12 +34,18 @@ function vikingsFight (vikingo1, vikingo2){
 	var atakeV2 = vikingo1.health - vikingo2.strength;
 	
 	while (turns > 0 && atakeV1 > 0 && atakeV2 > 0 ) {
-		vikingo2.health - vikingo1.strength;
-		vikingo1.health - vikingo2.strength;
-		}
+		vikingo2.health = vikingo2.health - vikingo1.strength;
+		vikingo1.health = vikingo1.health - vikingo2.strength;
+		
 		turns--;
 	};
 	console.log("The fight is over!");
-}
+
+	if(viking1.health > viking2.health) {
+		console.log('The winner is ' + viking1.name);
+	} else if (viking2.health > viking1.health) {
+		console.log('The winner is ' + viking2.name);
+	};
+};
 
 vikingsFight(viking1, viking2);
