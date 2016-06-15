@@ -25,23 +25,18 @@ function randomName(){
 	return names;
 }
 
-
-var viking1 = new Viking("pepe", randomHealth(), randomStrength());
-var viking2 = new Viking("paco", randomHealth(), randomStrength());
-console.log(viking1);
-console.log(viking2);
-
 // The pit
+
 function vikingsFight (fighter1, fighter2){
 	var turns = 10;
-	var atakeV1 = fighter2.health - fighter1.strength;
-	var atakeV2 = fighter1.health - fighter2.strength;
+	//var atakeV1 = fighter2.health - fighter1.strength; TO LOCO
+	//var atakeV2 = fighter1.health - fighter2.strength;
 	
-	while (turns > 0 && atakeV1 > 0 && atakeV2 > 0 ) {
+	while (turns > 0 && fighter2.health - fighter1.strength > 0 && fighter1.health - fighter2.strength > 0) {
 		fighter2.health = fighter2.health - fighter1.strength;
-		console.log('Oh ' + fighter2.name + ' has been hit! His remaining health is ' + fighter2.health);
+		console.log('Oh, ' + fighter2.name + ' has been hit! His remaining health is ' + fighter2.health);
 		fighter1.health = fighter1.health - fighter2.strength;
-		console.log('Oh ' + fighter1.name + 'has been hit! His remaining health is ' + fighter1.health);
+		console.log('Oh, ' + fighter1.name + 'has been hit! His remaining health is ' + fighter1.health);
 		
 		turns--;
 	};
@@ -95,38 +90,41 @@ function createSaxonsArmy() {
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 var Assault = function() {
 	this.turns = randomTurns(),
-	this.vikingsArmy,
-	this.saxonsArmy;
+	this.vikingsArmy = createVikingsArmy(),
+	this.saxonsArmy = createSaxonsArmy(),
 }
+
+function randomFighter(myArray) { 
+	return myArray[Math.floor(Math.random() * myArray.length)];
+}
+
+Assault.prototype.start = function() {
+	while (turns > 0) {
+		var vikingFighter = randomFighter(vikingsArmy);
+		var saxonFighter = randomFighter(saxonsArmy);	
+
+		vikingFighter.health - saxonFighter.strength;
+		console.log(vikingFighter.name + ' has been hit by a saxon! His health now is ' + vikingFighter.health)
+		saxonFighter.health - vikingFighter.strength;
+		console.log(saxonFighter.name + ' has been hit by a saxon! His health now is ' + saxonFighter.health)
+
+
+		turns--;
+	}
+}
+
+
+
+
+
 
 
 function randomTurns() {
 	return Math.floor(Math.random() * (8 - 5 + 1)) + 5;
 }
 
-
-
-
-
-
-
-
-vikingsArmy.length
 
 
 
