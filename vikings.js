@@ -54,7 +54,7 @@ console.log(viking2);
 
 vikingsFight(viking1, viking2);
 
-
+console.log('=====================================================================================');
 // Saxons
 
 var Saxon = function() {
@@ -128,6 +128,7 @@ Assault.prototype.start = function() {
 			
 			saxonFighter.health = saxonFighter.health - vikingFighter.strength;
 			if (saxonFighter.health <= 0) {
+				console.log(saxonFighter.name + ' has been hit by a viking!');
 				replaceDeadSaxon();
 
 			} else {
@@ -138,9 +139,10 @@ Assault.prototype.start = function() {
 
 		function replaceDeadViking() {
 			var deadViking = vikingsArmy.indexOf(vikingFighter);
+			console.log(vikingFighter.name + ' IS DEAD. REPLACING...');
 			vikingsArmy.splice(deadViking, 1);
-			console.log('VIKING DEAD. REPLACING...');
 			vikingFighter = randomFighter(vikingsArmy);
+			console.log(vikingFighter.name + ' is going to fight');
 		}
 
 		function replaceDeadSaxon() {
@@ -148,6 +150,7 @@ Assault.prototype.start = function() {
 			saxonsArmy.splice(deadSaxon, 1);
 			console.log('SAXON DEAD. REPLACING...');
 			saxonFighter = randomFighter(saxonsArmy);
+			console.log('New saxon is going to fight');
 		}
 
 /*
