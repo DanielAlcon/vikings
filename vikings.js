@@ -60,7 +60,7 @@ console.log('===================================================================
 var Saxon = function() {
 	this.name = 'saxon',
 	this.health = random(5, 15);
-	this.strength = random(1, 3);
+	this.strength = random(1, 10);
 };
 
 var saxon1 = new Saxon();
