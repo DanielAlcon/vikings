@@ -6,12 +6,6 @@ var Viking = function() {
 	this.strength = random(5, 20);
 };
 
-var Saxon = function() {
-	this.name = 'saxon',
-	this.health = random(25, 100);
-	this.strength = random(5, 15);
-};
-
 function random(min, max){
 	return Math.floor(Math.random() * (max - min)) + min;
 };
@@ -63,7 +57,11 @@ vikingsFight(viking1, viking2);
 console.log('=====================================================================================');
 // Saxons
 
-
+var Saxon = function() {
+	this.name = 'saxon',
+	this.health = random(25, 100);
+	this.strength = random(5, 15);
+};
 
 var saxon1 = new Saxon();
 console.log(saxon1);
