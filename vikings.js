@@ -30,33 +30,46 @@ var viking2 = new Viking();
 
 function vikingsFight (fighter1, fighter2){
 	var turns = 10;
-	
-	while (turns > 0 && fighter2.health - fighter1.strength > 0 && fighter1.health - fighter2.strength > 0) {
+	var turnsToFinish = turns > 0;
+	var b = fighter2.health - fighter1.strength > 0 && fighter1.health - fighter2.strength > 0;
+	printFighters();
+
+	while (turnsToFinish && b) {
 		fighter2.health = fighter2.health - fighter1.strength;
 		console.log('Oh, ' + fighter2.name + ' has been hit in ' + fighter1.strength + '! His remaining health is ' + fighter2.health);
 		fighter1.health = fighter1.health - fighter2.strength;
 		console.log('Oh, ' + fighter1.name + ' has been hit in ' + fighter2.strength + '! His remaining health is ' + fighter1.health);
 		
 		turns--;
+		turnsToFinish = turns > 0;
+		b = fighter2.health - fighter1.strength > 0 && fighter1.health - fighter2.strength > 0;
 	};
 	console.log("The fight is over!");
+	checkWinner(fighter1, fighter2);
 
+};
+
+function printFighters(){
+	console.log('The fight is about to begin... The fighters are ' + viking1.name + ' and ' + viking2.name);
+	console.log(viking1);
+	console.log(viking2);
+};
+
+function checkWinner(fighter1, fighter2){
 	if(fighter1.health > fighter2.health) {
 		console.log('The winner is ' + fighter1.name);
 	} else if (fighter2.health > fighter1.health) {
 		console.log('The winner is ' + fighter2.name);
 	};
-};
-
-console.log('The fight is about to begin... The fighters are ' + viking1.name + ' and ' + viking2.name);
-console.log(viking1);
-console.log(viking2);
+}
 
 vikingsFight(viking1, viking2);
 
-console.log('=====================================================================================');
+function printSeparator(){
+	console.log('=====================================================================================');
+}
 
-
+printSeparator();
 // Saxons
 
 var Saxon = function() {
@@ -67,13 +80,30 @@ var Saxon = function() {
 
 var saxon1 = new Saxon();
 
-
-
 //The assault
 
 var vikingsArmy = [];
 var saxonsArmy = [];
 
+function createArmy(){
+	var randomNumberVikings = random(10, 100);
+	var randomNumberSaxons = random(30, 200);
+	do {
+		randomNumberVikings--;
+		var viking = new Viking();
+		vikingsArmy.push(viking);
+		}
+		while (randomNumberVikings > 0);
+	do {
+		randomNumberSaxons--;
+		var saxon = new Saxon();
+		saxonsArmy.push(saxon);
+		}
+		while (randomNumberSaxons > 0);
+};
+
+createArmy();
+/*
 function createVikingsArmy() {
 	var randomNumber = random(10, 100);
 	do {
@@ -93,13 +123,7 @@ function createSaxonsArmy() {
 		}
 		while (randomNumber > 0);	
 };
-
-
-var Assault = function() {
-	this.turns = randomTurns(),
-	this.vikingsArmy = createVikingsArmy(),
-	this.saxonsArmy = createSaxonsArmy();
-}
+*/
 
 function randomTurns() {
 	return Math.floor(Math.random() * (8 - 5 + 1)) + 5;
@@ -107,6 +131,12 @@ function randomTurns() {
 
 function randomFighter(myArray) { 
 	return myArray[Math.floor(Math.random() * myArray.length)];
+}
+
+var Assault = function() {
+	this.turns = randomTurns(),
+	this.vikingsArmy = vikingsArmy,
+	this.saxonsArmy = saxonsArmy;
 }
 
 Assault.prototype.start = function() {
