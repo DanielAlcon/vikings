@@ -66,7 +66,7 @@ var Saxon = function() {
 };
 
 var saxon1 = new Saxon();
-console.log(saxon1);
+
 
 
 //The assault
@@ -112,67 +112,70 @@ function randomFighter(myArray) {
 Assault.prototype.start = function() {
 	var vikingFighter = randomFighter(vikingsArmy);
 	var saxonFighter = randomFighter(saxonsArmy);
+	var turnsLeft = this.turns;
 	console.log(vikingsArmy.length + ' vikings VS ' + saxonsArmy.length + ' saxons');
-	console.log(vikingFighter.name + ' VS ' + saxonFighter.name)
-	console.log(this.turns);
+	console.log("Turns for each fight " + this.turns);
 	
 
-	while (vikingsArmy.length > 0 && saxonsArmy.length > 0 ) {
+	while (vikingsArmy.length > 0 && saxonsArmy.length > 0) {
 			
+		function turns() {
+			for (i = turnsLeft; i > 0; i--) {
+				turnsLeft--;
+				attacks();
+			}
+		}
 
 		function attacks() {
-			vikingFighter.health = vikingFighter.health - saxonFighter.strength;
-			if (vikingFighter.health <= 0) {
-				replaceDeadViking();
-			} else {
-				console.log(vikingFighter.name + ' has been hit by a saxon! His health now is ' + vikingFighter.health);	
-			}
-			
-			saxonFighter.health = saxonFighter.health - vikingFighter.strength;
-			if (saxonFighter.health <= 0) {
-				console.log(saxonFighter.name + ' has been hit by a viking!');
-				replaceDeadSaxon();
+			//while (turnsLeft > 0) {
+				// viking attacks
+				vikingFighter.health = vikingFighter.health - saxonFighter.strength;
+				if (vikingFighter.health <= 0) {
+					replaceDeadViking();
+				} else {
+					console.log(vikingFighter.name + ' has been hit by a saxon! His health now is ' + vikingFighter.health);	
+				}
+				
+				//saxon attacks
+				saxonFighter.health = saxonFighter.health - vikingFighter.strength;
+				if (saxonFighter.health <= 0) {
+					console.log(saxonFighter.name + ' has been hit by a viking!');
+					replaceDeadSaxon();
 
-			} else {
-				console.log(saxonFighter.name + ' has been hit by a viking! His health now is ' + saxonFighter.health);
+				} else {
+					console.log(saxonFighter.name + ' has been hit by a viking! His health now is ' + saxonFighter.health);
 
-			}
+				}
+				//turnsLeft--;
+			//}
+			//return ("There are no turns left for this battle. The fighters are going to get some beers");
 		}
 
 		function replaceDeadViking() {
 			var deadViking = vikingsArmy.indexOf(vikingFighter);
-			console.log(' === ' + vikingFighter.name + ' IS DEAD. REPLACING...' + ' ===');
+			console.log(' === ' + vikingFighter.name + ' IS DEAD. REPLACING... ===');
 			vikingsArmy.splice(deadViking, 1);
-			vikingFighter = randomFighter(vikingsArmy);
-			console.log('=== New viking is going to fight ===');
 			if(vikingsArmy.length === 0) {
-				console.log("There's no vikings left!")
+				console.log("There's no vikings left!");
+			} else {
+				vikingFighter = randomFighter(vikingsArmy);
+				return('=== New viking is going to fight ===');
 			}
 		}
 
 		function replaceDeadSaxon() {
 			var deadSaxon = saxonsArmy.indexOf(saxonFighter);
-			saxonsArmy.splice(deadSaxon, 1);
 			console.log(' === SAXON DEAD. REPLACING... ===');
-			saxonFighter = randomFighter(saxonsArmy);
-			console.log('=== New saxon is going to fight ===');
+			saxonsArmy.splice(deadSaxon, 1);			
 			if(saxonsArmy.length === 0) {
 				console.log("There's no saxons left!")
+			} else {
+				saxonFighter = randomFighter(saxonsArmy);
+				return('=== New saxon is going to fight ===');
 			}
 		}
 
-/*
-		if(vikingFighter.health <= 0) {
-			replaceDeadViking();
-			attacks();
-		} else if (saxonFighter.health <= 0) {
-			replaceDeadSaxon();
-			attacks();
-		}
-		*/
-
 		attacks();
-		// this.turns--;
 		
 
 	}
