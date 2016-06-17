@@ -55,6 +55,8 @@ console.log(viking2);
 vikingsFight(viking1, viking2);
 
 console.log('=====================================================================================');
+
+
 // Saxons
 
 var Saxon = function() {
@@ -139,18 +141,24 @@ Assault.prototype.start = function() {
 
 		function replaceDeadViking() {
 			var deadViking = vikingsArmy.indexOf(vikingFighter);
-			console.log(vikingFighter.name + ' IS DEAD. REPLACING...');
+			console.log(' === ' + vikingFighter.name + ' IS DEAD. REPLACING...' + ' ===');
 			vikingsArmy.splice(deadViking, 1);
 			vikingFighter = randomFighter(vikingsArmy);
-			console.log(vikingFighter.name + ' is going to fight');
+			console.log('=== New viking is going to fight ===');
+			if(vikingsArmy.length === 0) {
+				console.log("There's no vikings left!")
+			}
 		}
 
 		function replaceDeadSaxon() {
 			var deadSaxon = saxonsArmy.indexOf(saxonFighter);
 			saxonsArmy.splice(deadSaxon, 1);
-			console.log('SAXON DEAD. REPLACING...');
+			console.log(' === SAXON DEAD. REPLACING... ===');
 			saxonFighter = randomFighter(saxonsArmy);
-			console.log('New saxon is going to fight');
+			console.log('=== New saxon is going to fight ===');
+			if(saxonsArmy.length === 0) {
+				console.log("There's no saxons left!")
+			}
 		}
 
 /*
