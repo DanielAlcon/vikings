@@ -6,6 +6,12 @@ var Viking = function() {
 	this.strength = random(7, 20);
 };
 
+var Saxon = function() {
+	this.name = 'saxon',
+	this.health = random(25, 100);
+	this.strength = random(5, 15);
+};
+
 function random(min, max){
 	return Math.floor(Math.random() * (max - min)) + min;
 };
@@ -70,11 +76,7 @@ function printSeparator(){
 
 printSeparator();
 // Saxons
-var Saxon = function() {
-	this.name = 'saxon',
-	this.health = random(25, 100);
-	this.strength = random(5, 15);
-};
+
 
 var saxon1 = new Saxon();
 
@@ -165,27 +167,21 @@ var Assault = function() {
 		console.log(vikingsArmy.length + ' vikings VS ' + saxonsArmy.length + ' saxons');
 		console.log("Turns for each fight " + this.turns);
 	}
-}
 
-function printAssaultResult(){
-	console.log('There are ' + vikingsArmy.length + ' vikings left');
-	console.log('There are ' + saxonsArmy.length + ' saxons left');
-	if (vikingsArmy.length > saxonsArmy.length) {
-		console.log ("Viking women slaughtered saxons' kids and raped their men!! FOR ODIN!!!!");
-	} else if (vikingsArmy.length < saxonsArmy.length){
-		console.log("Vikings have been humiliated by the mighty saxons!")
-	} else if (vikingsArmy.length == saxonsArmy.length){
-		console.log("Vikings and saxons made an arrangement and ended the hostilities");
-	} else {
-		console.log("What the fuck did you do?")
-	};
+	this.printAssaultResult = function (){
+		console.log('There are ' + vikingsArmy.length + ' vikings left');
+		console.log('There are ' + saxonsArmy.length + ' saxons left');
+		if (vikingsArmy.length > saxonsArmy.length) {
+			console.log ("Viking women slaughtered saxons' kids and raped their men!! FOR ODIN!!!!");
+		} else if (vikingsArmy.length < saxonsArmy.length){
+			console.log("Vikings have been humiliated by the mighty saxons!")
+		} else if (vikingsArmy.length == saxonsArmy.length){
+			console.log("Vikings and saxons made an arrangement and ended the hostilities");
+		} else {
+			console.log("What the fuck did you do?")
+		}
+	}
 }
-
-/*
-Assault.prototype.turns = function(){
-
-}
-*/
 
 Assault.prototype.start = function() {
 	this.howManyFighters();
@@ -193,9 +189,16 @@ Assault.prototype.start = function() {
 	while (vikingsArmy.length > 0 && saxonsArmy.length > 0) {
 		this.attacks();
 	};
-	
-	printAssaultResult();		
+
+	this.printAssaultResult();		
 }
 
 var assault1 = new Assault();
 assault1.start();
+
+/*
+- constructores de Viking y Saxon INHERITANCE
+- funciones de createArmy
+- funciones de reemplazar cadáveres
+- this.attacks (ataques de viking y saxon)
+*/
