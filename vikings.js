@@ -139,7 +139,7 @@ var Assault = function() {
 		//return ("There are no turns left for this battle. The fighters are going to get some beers");
 	}
 
-	function replaceDeadViking() {
+	/*function replaceDeadViking() {
 		var deadViking = vikingsArmy.indexOf(vikingFighter);
 		console.log(' === ' + vikingFighter.name + ' IS DEAD. REPLACING... ===');
 		vikingsArmy.splice(deadViking, 1);
@@ -159,6 +159,18 @@ var Assault = function() {
 			console.log("There's no saxons left!")
 		} else {
 			saxonFighter = randomFighter(saxonsArmy);
+			console.log('=== New saxon is going to fight ===');
+		}
+	}*/
+
+	function replaceDead(army) {
+		var dead = army.indexOf(fighter);
+		console.log(' === SAXON DEAD. REPLACING... ===');
+		army.splice(dead, 1);			
+		if(army.length === 0) {
+			console.log("There's no saxons left!")
+		} else {
+			fighter = randomFighter(army);
 			console.log('=== New saxon is going to fight ===');
 		}
 	}
