@@ -85,7 +85,7 @@ var vikingsArmy = [];
 var saxonsArmy = [];
 
 function createArmy(){
-	var randomNumberVikings = random(10, 100);
+	var randomNumberVikings = random(20, 100);
 	var randomNumberSaxons = random(30, 200);
 	do {
 		randomNumberVikings--;
@@ -119,18 +119,16 @@ var Assault = function() {
 			// viking attacks
 			vikingFighter.health = vikingFighter.health - saxonFighter.strength;
 			if (vikingFighter.health <= 0) {
-				replaceDeadViking();
-			} else {
+				vikingFighter = replaceDead(this.vikingsArmy, vikingFighter);
+			} else if(this.vikingsArmy.length > 0) {
 				console.log(vikingFighter.name + ' has been hit by a saxon! His health now is ' + vikingFighter.health);	
 			}
 			
 			//saxon attacks
 			saxonFighter.health = saxonFighter.health - vikingFighter.strength;
 			if (saxonFighter.health <= 0) {
-				console.log(saxonFighter.name + ' has been hit by a viking!');
-				replaceDeadSaxon();
-
-			} else if(vikingsArmy.length > 0){
+				saxonFighter = replaceDead(this.saxonsArmy, saxonFighter);
+			} else if(this.saxonsArmy.length > 0){
 				console.log(saxonFighter.name + ' has been hit by a viking! His health now is ' + saxonFighter.health);
 
 			}
@@ -139,7 +137,7 @@ var Assault = function() {
 		//return ("There are no turns left for this battle. The fighters are going to get some beers");
 	}
 
-	function replaceDeadViking() {
+	/*function replaceDeadViking() {
 		var deadViking = vikingsArmy.indexOf(vikingFighter);
 		console.log(' === ' + vikingFighter.name + ' IS DEAD. REPLACING... ===');
 		vikingsArmy.splice(deadViking, 1);
@@ -161,6 +159,26 @@ var Assault = function() {
 			saxonFighter = randomFighter(saxonsArmy);
 			console.log('=== New saxon is going to fight ===');
 		}
+	}*/
+
+	function replaceDead(army, fighter) {
+		var dead = army.indexOf(fighter);
+
+		if(fighter === vikingFighter) {
+			console.log('=== New viking is going to fight ===');
+		} else if (fighter === saxonFighter) {
+			console.log('=== New saxon is going to fight ===')
+		}
+
+		console.log(' === ' + fighter.name + ' DEAD. REPLACING... ===');
+		army.splice(dead, 1);			
+		if(army.length === 0) {
+			console.log("There's no saxons left!")
+		} else {
+			fighter = randomFighter(army);
+			console.log('=== New ' + fighter.name + ' is going to fight ===');
+		}
+		return fighter;
 	}
 
 	this.howManyFighters = function (){
@@ -195,3 +213,10 @@ Assault.prototype.start = function() {
 
 var assault1 = new Assault();
 assault1.start();
+
+/*
+- constructores de Viking y Saxon INHERITANCE
+- funciones de createArmy
+- funciones de reemplazar cadáveres
+- this.attacks (ataques de viking y saxon)
+*/
